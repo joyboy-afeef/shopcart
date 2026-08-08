@@ -26,6 +26,20 @@ A full-stack e-commerce web application built with Python and Flask. It provides
 - Consistent spacing, typography, and color system
 - Client- and server-side form validation
 
+## Screenshots
+
+### Home Page
+![Home page](screenshots/Home%20page.png)
+
+### Product Detail Page
+![Product detail page](screenshots/Product%20detail%20page.png)
+
+### Checkout
+![Checkout page](screenshots/Checkout%20page.png)
+
+### Admin Dashboard
+![Admin dashboard](screenshots/Admin%20dashboard.png)
+
 ## Tech Stack
 
 - **Backend:** Python 3.9+, Flask
