@@ -134,4 +134,4 @@ If you plan to host this beyond local development:
 
 ## License
 
-Add a license of your choice (e.g., MIT) here.
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
