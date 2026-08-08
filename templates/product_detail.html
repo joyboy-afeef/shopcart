@@ -1,0 +1,219 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="layout">
+  <section style="flex:1;">
+    <div class="product-detail">
+      <div style="display:flex;gap:12px;align-items:flex-start;">
+        <div style="flex:1;max-width:520px;position:relative;">
+          <style>
+            .carousel { position:relative; width:100%; max-width:480px; margin-bottom:8px; }
+            .carousel img, .carousel video { width:100%; height:auto; display:block; }
+            .carousel .nav { position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,0.4); color:#fff; border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+            .carousel .nav.left { left:8px; }
+            .carousel .nav.right { right:8px; }
+          </style>
+
+          <div class="carousel" id="carousel">
+            <!-- media placeholder populated by JS -->
+            <div class="nav left" id="prev">‹</div>
+            <div class="nav right" id="next">›</div>
+          </div>
+
+          <script>
+            (function(){
+              const items = [];
+              // primary image first
+              {% if product.imageUrl %}
+              items.push({type: 'image', src: '{{ product.imageUrl }}'});
+              {% endif %}
+              {% if product.media %}
+                {% for m in product.media %}
+                  {% if m.endswith('.mp4') or m.endswith('.webm') or m.endswith('.ogg') %}
+                    items.push({type:'video', src:'{{ m }}'});
+                  {% else %}
+                    items.push({type:'image', src:'{{ m }}'});
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+
+              const carousel = document.getElementById('carousel');
+              let idx = 0;
+
+              function render() {
+                carousel.querySelectorAll('img,video,div.content').forEach(n=>n.remove());
+                const it = items[idx];
+                if(!it) return;
+                if(it.type === 'video'){
+                  const v = document.createElement('video'); v.src = it.src; v.controls = true; v.style.width='100%'; v.style.height='auto'; v.className='content'; carousel.insertBefore(v, document.getElementById('next'));
+                } else {
+                  const i = document.createElement('img'); i.src = it.src; i.alt = '{{ product.name }}'; i.className='content'; i.style.width='100%'; i.style.height='auto'; carousel.insertBefore(i, document.getElementById('next'));
+                }
+              }
+
+              function next(){ idx = (idx+1)%items.length; render(); }
+              function prev(){ idx = (idx-1+items.length)%items.length; render(); }
+
+              document.getElementById('next').addEventListener('click', next);
+              document.getElementById('prev').addEventListener('click', prev);
+
+              let startX = 0;
+              carousel.addEventListener('touchstart', e=> startX = e.touches[0].clientX);
+              carousel.addEventListener('touchend', e=>{
+                const dx = (e.changedTouches[0].clientX - startX);
+                if(Math.abs(dx) > 40){ if(dx < 0) next(); else prev(); }
+              });
+
+              render();
+            })();
+          </script>
+        </div>
+        <div style="flex:1;">
+          <h2>{{ product.name }}</h2>
+          {% if product.brand %}<p style="color:#ec4899;font-weight:600;margin:6px 0 0;">Brand: {{ product.brand }}</p>{% endif %}
+          <p style="color:#6b7280">₹{{ '%.2f'|format(product.price) }}</p>
+          <p>{{ product.description }}</p>
+        </div>
+      </div>
+
+      <div style="margin-top:12px;">
+        <a class="button" href="/cart/add/{{ product.id }}">Add to cart</a>
+        <a href="/" class="button" style="background:#6b7280;margin-left:8px">Back to products</a>
+      </div>
+
+      {% if review_summary %}
+      <div style="margin-top:24px;padding:16px;border:1px solid #d1fae5;border-radius:12px;background:#ecfdf5;">
+        <strong>AI review summary</strong>
+        <p style="margin:8px 0 0;">{{ review_summary }}</p>
+      </div>
+      {% endif %}
+
+      <!-- Customer Reviews Section -->
+      {% if avg_rating > 0 or reviews %}
+      <div style="margin-top:32px;padding:20px;border:1px solid #e5e7eb;border-radius:12px;background:#f9fafb;">
+        <h3 style="margin-top:0;margin-bottom:16px;">Customer Reviews & Ratings</h3>
+        
+        <!-- Rating Summary -->
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
+          <div>
+            <div style="font-size:2.5rem;font-weight:bold;">{{ '%.1f'|format(avg_rating) }}</div>
+            <div style="color:#6b7280;font-size:0.9rem;">out of 5</div>
+          </div>
+          <div>
+            <!-- Star Rating Display -->
+            <div style="font-size:1.5rem;margin-bottom:4px;">
+              {% set stars = avg_rating|int %}
+              {% set half_star = (avg_rating - stars) >= 0.5 %}
+              {% for i in range(5) %}
+                {% if i < stars %}★{% elif i == stars and half_star %}⭐{% else %}☆{% endif %}
+              {% endfor %}
+            </div>
+            <div style="color:#6b7280;font-size:0.9rem;">{{ rating_count }} customer{{ 's' if rating_count != 1 else '' }} rating{{ 's' if rating_count != 1 else '' }}</div>
+          </div>
+        </div>
+
+        <!-- Individual Reviews -->
+        {% if reviews %}
+        <div style="border-top:1px solid #d1d5db;padding-top:16px;">
+          <h4 style="margin-top:0;margin-bottom:16px;">Customer Feedback</h4>
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            {% for review in reviews %}
+            <div style="padding:12px;background:#fff;border:1px solid #e5e7eb;border-radius:8px;">
+              <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:8px;">
+                <div>
+                  <div style="font-weight:600;color:#1f2937;">{{ review.customer }}</div>
+                  <div style="font-size:0.85rem;color:#6b7280;">{{ review.date }}</div>
+                </div>
+                <div style="font-size:1.2rem;color:#f59e0b;">
+                  {% for i in range(5) %}
+                    {% if i < review.rating %}★{% else %}☆{% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+              <p style="margin:8px 0 0;color:#374151;line-height:1.5;">{{ review.feedback }}</p>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+
+    {% if recommended_products %}
+    <div style="margin-top:32px;">
+      <h3>Customers also liked</h3>
+      <div class="small-product-grid">
+        {% for related in recommended_products %}
+        <article class="product-card small-product-card">
+          <a href="/product/{{ related.id }}">
+            <img src="{{ related.imageUrl }}" alt="{{ related.name }}" />
+          </a>
+          <div class="product-info">
+            <h3><a href="/product/{{ related.id }}">{{ related.name }}</a></h3>
+            {% if related.brand %}<p style="margin:4px 0 0;color:#ec4899;font-weight:600;font-size:0.85rem;">{{ related.brand }}</p>{% endif %}
+            <p>{{ related.description }}</p>
+            <div class="product-footer">
+              <span>₹{{ '%.2f'|format(related.price) }}</span>
+              <a class="button" href="/cart/add/{{ related.id }}">Add to cart</a>
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    {% if related_products %}
+    <div style="margin-top:32px;">
+      <h3>Similar products you may like</h3>
+      <div class="small-product-grid">
+        {% for related in related_products %}
+        <article class="product-card small-product-card">
+          <a href="/product/{{ related.id }}">
+            <img src="{{ related.imageUrl }}" alt="{{ related.name }}" />
+          </a>
+          <div class="product-info">
+            <h3><a href="/product/{{ related.id }}">{{ related.name }}</a></h3>
+            {% if related.brand %}<p style="margin:4px 0 0;color:#ec4899;font-weight:600;font-size:0.85rem;">{{ related.brand }}</p>{% endif %}
+            <p>{{ related.description }}</p>
+            <div class="product-footer">
+              <span>₹{{ '%.2f'|format(related.price) }}</span>
+              <a class="button" href="/cart/add/{{ related.id }}">Add to cart</a>
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </section>
+
+  <aside class="cart-panel">
+    <h2>Cart</h2>
+    {% if not cart_items %}
+    <p>Your cart is empty.</p>
+    {% else %}
+    <div class="cart-list">
+      {% for item in cart_items %}
+      <div class="cart-item">
+        <div>
+          <strong>{{ item.name }}</strong>
+          <p style="margin:6px 0 0;">Quantity: 
+            <a href="/cart/decrease/{{ item.id }}" style="margin-right:8px;">−</a>
+            <strong>{{ item.quantity }}</strong>
+            <a href="/cart/increase/{{ item.id }}" style="margin-left:8px;">+</a>
+            &nbsp;× ₹{{ '%.2f'|format(item.price) }}</p>
+        </div>
+        <a class="remove-link" href="/cart/remove/{{ item.id }}">Remove</a>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="cart-summary">
+      <p><strong>Total:</strong> ₹{{ '%.2f'|format(total) }}</p>
+      <a class="button checkout" href="/checkout">Checkout</a>
+    </div>
+    {% endif %}
+  </aside>
+</div>
+{% endblock %}

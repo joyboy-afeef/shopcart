@@ -1,0 +1,177 @@
+==============================================
+ SHOPCART - HOW TO USE THIS WEBSITE
+ A simple guide to every feature, explained plainly
+==============================================
+
+This guide walks you through everything you can do on the site,
+both as a shopper and as the site admin. No technical knowledge
+needed - just read the section for whatever you're trying to do.
+
+
+------------------------------------------------
+ PART 1: SHOPPING AS A CUSTOMER
+------------------------------------------------
+
+1. THE HOME PAGE (the product catalog)
+   -----------------------------------
+   When you open the site, you land on the home page. This shows
+   every product in the store as a grid of cards - each with a
+   picture, name, price, and a short description.
+
+2. SEARCHING FOR PRODUCTS
+   -----------------------
+   Type anything into the search box at the top (like "watch" or
+   "backpack") and hit search. The site looks through product
+   names and descriptions to find matches - so you don't need to
+   know the exact product name, just a related word or two.
+
+3. FILTERING PRODUCTS
+   -------------------
+   Next to the search box you'll find filter options:
+     - Brand: show only products from one brand
+     - Rating: show only products with a certain star rating
+   You can combine a search with filters to narrow things down
+   further.
+
+4. SORTING PRODUCTS
+   -----------------
+   You can sort the product list by:
+     - Price: Low to High
+     - Price: High to Low
+   Useful if you're on a budget or looking for the priciest option.
+
+5. VIEWING A PRODUCT'S DETAILS
+   ----------------------------
+   Click any product card to open its detail page. Here you'll see:
+     - A bigger picture and full description
+     - The price
+     - Customer reviews left by other shoppers
+     - An average star rating
+     - A short AI-written summary of what reviewers are saying
+     - Related products you might also like
+   From here, you can add the product straight to your cart.
+
+6. THE SHOPPING CART
+   ------------------
+   Every time you add a product, it goes into your cart (you'll
+   see a running total somewhere near the top of the page). In
+   the cart you can:
+     - Increase or decrease the quantity of an item
+     - Remove an item completely
+     - See the running total price update automatically
+
+7. LOGGING IN
+   ----------
+   Before checking out, you'll be asked to log in using your
+   phone number (not an email or username). You'll first choose
+   your country's calling code from a dropdown, then enter your
+   number. This is how the site remembers which orders belong to
+   you.
+
+8. CHECKING OUT
+   -------------
+   Once you're logged in and happy with your cart:
+     - Go to Checkout
+     - Review everything in your cart one more time
+     - Enter your delivery address
+     - Confirm the order
+   You'll land on a confirmation page showing your order was
+   placed successfully.
+
+9. VIEWING YOUR ORDER HISTORY ("My Orders")
+   -----------------------------------------
+   This page shows every order you've placed, along with its
+   current status (e.g. Processing, Shipped, Delivered). Click
+   into any order to see its full details.
+
+10. LEAVING FEEDBACK ON AN ORDER
+    ------------------------------
+    Once you've received an order, you can leave a star rating
+    and written feedback on it. This feedback is what shows up
+    as "customer reviews" on that product's page for future
+    shoppers - so your review actually helps other people decide
+    what to buy.
+
+11. THE SUPPORT / HELP CHATBOT
+    ----------------------------
+    If you have a question about an order, a product, returns,
+    or anything else, visit the Support page and type your
+    question. An AI chatbot will try to answer it for you based
+    on your order history and the store's info.
+
+
+------------------------------------------------
+ PART 2: RUNNING THE STORE AS THE ADMIN
+------------------------------------------------
+
+To access any of this, go to the Admin Login page and sign in
+with the admin password (set up separately from customer
+accounts - see the README file for how the password works).
+
+1. THE ADMIN DASHBOARD
+   --------------------
+   After logging in, you land on a dashboard showing quick stats:
+   how many products you have, how many orders have come in, and
+   a breakdown of order statuses (e.g. how many are still
+   Processing vs. Delivered).
+
+2. ADDING A NEW PRODUCT
+   ---------------------
+   Go to "Add Product" and fill in:
+     - Product name
+     - Description
+     - Price
+     - Brand
+     - An image (upload a picture, or link to one online)
+   Once saved, it instantly appears on the storefront for
+   customers to see and buy.
+
+3. EDITING OR DELETING A PRODUCT
+   ------------------------------
+   From "Manage Products," click any product to edit its details
+   (name, price, description, image, etc.), or delete it entirely
+   if you no longer want to sell it.
+
+4. MANAGING BRANDS
+   ----------------
+   From "Manage Brands," you can assign or change which brand
+   each product belongs to. This is what powers the "Brand"
+   filter shoppers see on the home page.
+
+5. MANAGING COUNTRY CALLING CODES
+   -------------------------------
+   Customers pick their country code when they log in with their
+   phone number. From "Manage Codes," you can add new country
+   codes or remove ones you don't want to support.
+
+6. MANAGING ORDERS
+   ----------------
+   From "Manage Orders," you can see every order placed on the
+   site. Click into any order to:
+     - View exactly what was purchased and by whom
+     - Update its status (e.g. mark it as Shipped or Delivered)
+     - Edit order details if something needs correcting
+     - Delete an order entirely if needed
+
+7. LOGGING OUT
+   -----------
+   Both customers and admins have their own separate "Logout"
+   option, so you can safely sign out of either account type
+   when you're done.
+
+
+------------------------------------------------
+ QUICK TIPS
+------------------------------------------------
+- You don't need an account to browse - only to check out.
+- Search + filters + sorting can all be used together.
+- Product reviews come directly from customer feedback, so
+  encourage buyers to leave a rating - it builds trust for future
+  shoppers.
+- As admin, anything you add, edit, or delete updates the live
+  site immediately - there's no separate "publish" step.
+
+==============================================
+ End of guide. For setup and installation
+ instructions, see README.md instead.
+==============================================

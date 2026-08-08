@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="admin-panel">
+  <h2>Manage Products</h2>
+  <p><a href="/admin">Add new product</a></p>
+  {% if not products %}
+  <p>No products yet.</p>
+  {% else %}
+  <div class="product-grid">
+    {% for product in products %}
+    <article class="product-card">
+      <a href="/product/{{ product.id }}">
+        <img src="{{ product.imageUrl }}" alt="{{ product.name }}" />
+      </a>
+      <div class="product-info">
+        <h3>{{ product.name }}</h3>
+        {% if product.brand %}<p style="margin:4px 0 0;color:#ec4899;font-weight:600;font-size:0.95rem;">{{ product.brand }}</p>{% endif %}
+        <p>{{ product.description }}</p>
+        <div class="product-footer">
+          <span>₹{{ '%.2f'|format(product.price) }}</span>
+          <a class="button" href="/admin/edit/{{ product.id }}">Edit</a>
+          <form method="post" action="/admin/delete/{{ product.id }}" style="display:inline;margin-left:8px;">
+            <button class="button" type="submit" onclick="return confirm('Delete this product?')">Delete</button>
+          </form>
+          <a class="button" href="/product/{{ product.id }}" style="margin-left:8px;background:#6b7280">View</a>
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

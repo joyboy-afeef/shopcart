@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="admin-panel">
+  <h2>Edit Product</h2>
+  <form method="post" class="form-card" enctype="multipart/form-data">
+    <label>
+      Product name
+      <input type="text" name="name" value="{{ product.name }}" required />
+    </label>
+
+    <label>
+      Brand
+      <input type="text" name="brand" value="{{ product.brand or '' }}" required />
+    </label>
+
+    <label>
+      Price
+      <input type="number" name="price" step="0.01" min="0" value="{{ product.price }}" required />
+    </label>
+
+    <label>
+      Description
+      <textarea name="description">{{ product.description }}</textarea>
+    </label>
+
+    <label>
+      Primary Image URL
+      <input type="url" name="image_url" value="{{ product.imageUrl }}" />
+    </label>
+
+    <label>
+      Upload primary image (device)
+      <input type="file" name="primary_image" accept="image/*" />
+    </label>
+
+    <label>
+      Upload images/videos (optional)
+      <input type="file" name="media_files" multiple accept="image/*,video/*" />
+    </label>
+
+    <label>
+      Additional media URLs (one per line)
+      <textarea name="media_urls" placeholder="https://example.com/img1.jpg">{% if product.media %}{{ product.media|join('\n') }}{% endif %}</textarea>
+    </label>
+
+    <button class="button" type="submit">Save changes</button>
+    <a class="button" href="/admin/products" style="background:#6b7280;margin-left:8px">Cancel</a>
+  </form>
+</div>
+{% endblock %}

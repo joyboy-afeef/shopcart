@@ -1,0 +1,94 @@
+[
+  {
+    "id": "sample-aurora-watch",
+    "name": "Aurora Smartwatch",
+    "description": "Sleek fitness tracker with heart-rate monitoring, sleep insights, and a vivid AMOLED display.",
+    "price": 129.99,
+    "imageUrl": "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=900&q=80",
+    "brand": "PulseTech",
+    "media": [
+      "https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=900&q=80"
+    ]
+  },
+  {
+    "id": "sample-cloudlite-backpack",
+    "name": "CloudLite Backpack",
+    "description": "Weather-resistant everyday backpack designed for commuting, travel, and weekend adventures.",
+    "price": 74.5,
+    "imageUrl": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=80",
+    "brand": "Northstar",
+    "media": []
+  },
+  {
+    "id": "sample-mira-headphones",
+    "name": "Mira Wireless Headphones",
+    "description": "Immersive audio with adaptive noise cancellation and a comfortable over-ear fit.",
+    "price": 159.0,
+    "imageUrl": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=80",
+    "brand": "SoundNest",
+    "media": []
+  },
+  {
+    "id": "sample-luma-lamp",
+    "name": "Luma Desk Lamp",
+    "description": "Minimalist desk lamp with warm ambient lighting and touch dimming controls.",
+    "price": 54.0,
+    "imageUrl": "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=900&q=80",
+    "brand": "GlowBase",
+    "media": []
+  },
+  {
+    "id": "sample-horizon-shoes",
+    "name": "Horizon Running Shoes",
+    "description": "Lightweight cushioning for city runs, gym sessions, and all-day comfort.",
+    "price": 89.99,
+    "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80",
+    "brand": "StrideX",
+    "media": []
+  },
+  {
+    "id": "sample-cedar-mug",
+    "name": "Cedar Ceramic Mug Set",
+    "description": "Hand-finished ceramic mugs that add calm, modern style to your morning routine.",
+    "price": 32.0,
+    "imageUrl": "https://images.unsplash.com/photo-1517705008128-361805f42e86?auto=format&fit=crop&w=900&q=80",
+    "brand": "Maison & Co",
+    "media": []
+  },
+  {
+    "id": "sample-nova-projector",
+    "name": "Nova Mini Projector",
+    "description": "Portable projector with crisp visuals for movies, presentations, and casual streaming.",
+    "price": 199.0,
+    "imageUrl": "https://images.unsplash.com/photo-1518444065439-e933c06ce9cd?auto=format&fit=crop&w=900&q=80",
+    "brand": "VisionOne",
+    "media": []
+  },
+  {
+    "id": "sample-velora-skincare",
+    "name": "Velora Skincare Kit",
+    "description": "A balanced skincare set for hydration, glow, and everyday self-care.",
+    "price": 48.0,
+    "imageUrl": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=900&q=80",
+    "brand": "PureBotanics",
+    "media": []
+  },
+  {
+    "id": "sample-orbit-sleeve",
+    "name": "Orbit Laptop Sleeve",
+    "description": "Protective neoprene sleeve with a polished finish for work and travel.",
+    "price": 39.0,
+    "imageUrl": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=900&q=80",
+    "brand": "CarryLab",
+    "media": []
+  },
+  {
+    "id": "sample-echo-air-purifier",
+    "name": "Echo Air Purifier",
+    "description": "Compact air purifier with quiet operation and a fresh, modern look for your room.",
+    "price": 109.0,
+    "imageUrl": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=900&q=80",
+    "brand": "FreshAir",
+    "media": []
+  }
+]

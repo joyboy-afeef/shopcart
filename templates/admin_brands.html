@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="admin-panel">
+  <h2>Update Product Brands</h2>
+  <p>Add or update brands for existing products below:</p>
+  
+  {% if not products %}
+  <p>No products found.</p>
+  {% else %}
+  <div style="display: grid; gap: 20px;">
+    {% for product in products %}
+    <div style="border: 1px solid #d1d5db; border-radius: 16px; padding: 18px; background: #f8fafc;">
+      <div style="display: grid; grid-template-columns: 80px 1fr auto; gap: 18px; align-items: center;">
+        <img src="{{ product.imageUrl }}" alt="{{ product.name }}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 12px;" />
+        
+        <div>
+          <h3 style="margin: 0 0 8px; font-size: 1.1rem;">{{ product.name }}</h3>
+          <p style="margin: 0; color: #6b7280; font-size: 0.95rem;">Price: ₹{{ '%.2f'|format(product.price) }}</p>
+          <p style="margin: 4px 0 0; color: #6b7280; font-size: 0.95rem;">Current Brand: <strong>{{ product.brand or 'Not set' }}</strong></p>
+        </div>
+        
+        <form method="post" action="/admin/brands/update/{{ product.id }}" style="display: flex; gap: 8px; align-items: flex-end;">
+          <input type="text" name="brand" placeholder="Enter brand" value="{{ product.brand or '' }}" style="padding: 10px; border: 1px solid #d1d5db; border-radius: 12px; width: 160px;" required />
+          <button class="button" type="submit" style="white-space: nowrap;">Update Brand</button>
+        </form>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+  
+  <a class="button" href="/admin" style="background:#6b7280;margin-top:20px;">Back to Admin</a>
+</div>
+{% endblock %}

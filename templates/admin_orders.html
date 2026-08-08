@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="admin-panel">
+  <h2>Orders</h2>
+  <div style="margin-bottom:16px;">
+    <strong>Total orders:</strong> {{ total_orders }}
+    {% if status_counts %}
+    &nbsp;|&nbsp;
+    {% for key, val in status_counts.items() %}
+      <strong>{{ key }}:</strong> {{ val }}{% if not loop.last %}&nbsp;|&nbsp;{% endif %}
+    {% endfor %}
+    {% endif %}
+  </div>
+  {% if anomalies %}
+  <div style="margin-bottom:16px;padding:12px;border:1px solid #fecaca;border-radius:12px;background:#fef2f2;">
+    <strong>Flagged anomalies</strong>
+    <ul style="margin:8px 0 0 20px;">
+      {% for item in anomalies %}
+      <li><strong>{{ item.order_id }}</strong> — {{ item.reasons|join(', ') }} ({{ item.severity }})</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+  <div style="margin-bottom:12px;">
+    <button class="button" onclick="location.reload()">Refresh</button>
+    <label style="margin-left:12px; font-weight:600;">Auto-refresh
+      <input id="autoRefresh" type="checkbox" style="margin-left:6px;" />
+    </label>
+  </div>
+  {% if not orders %}
+  <p>No orders yet.</p>
+  {% else %}
+  <table style="width:100%;border-collapse:collapse">
+    <thead>
+      <tr style="text-align:left;border-bottom:1px solid #e5e7eb">
+        <th>Order ID</th>
+        <th>Phone</th>
+        <th>Created</th>
+        <th>Total</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for order in orders %}
+      <tr {% if not order.get('seen') %}style="background:#fff1f2;border-bottom:1px solid #f3f4f6"{% else %}style="border-bottom:1px solid #f3f4f6"{% endif %}>
+        <td>
+          {{ order.id }}
+          {% if not order.get('seen') %}
+            <span style="background:#ef4444;color:#fff;padding:2px 6px;border-radius:10px;font-size:11px;margin-left:8px;">New</span>
+          {% endif %}
+        </td>
+        <td>{{ order.phone }}</td>
+        <td>{{ order.created_at }}</td>
+        <td>₹{{ '%.2f'|format(order.total) }}</td>
+        <td>{{ order.get('status', 'pending') }}</td>
+        <td>
+          <a href="/admin/order/{{ order.id }}">View</a>
+          &nbsp;|&nbsp;
+          <a href="/admin/order/{{ order.id }}/edit">Edit</a>
+            &nbsp;|&nbsp;
+            <form method="post" action="/admin/order/{{ order.id }}/delete" style="display:inline" onsubmit="return confirm('Remove order {{ order.id }}? This cannot be undone.');">
+              <button class="button" style="background:#ef4444;padding:6px 8px;border:none;cursor:pointer;color:#fff;">Delete</button>
+            </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+  </div>
+
+  <script>
+    let timer = null;
+    document.getElementById('autoRefresh').addEventListener('change', function(e){
+      if(e.target.checked){
+        timer = setInterval(()=> location.reload(), 5000);
+      } else {
+        clearInterval(timer);
+        timer = null;
+      }
+    });
+  </script>
+</div>
+{% endblock %}

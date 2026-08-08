@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="admin-panel">
+  <h2>Order {{ order.id }}</h2>
+  <p><strong>Phone:</strong> {{ order.phone }}</p>
+  <p><strong>Placed:</strong> {{ order.created_at }}</p>
+  <p><strong>Status:</strong> {{ order.get('status', 'pending') }}</p>
+  <p><strong>Delivery address:</strong> {{ order.get('address', '—') }}</p>
+
+  <h3>Items</h3>
+  <ul>
+    {% for item in order['items'] %}
+    <li>{{ item.quantity }} × {{ item.name }} — ₹{{ '%.2f'|format(item.total) }}</li>
+    {% endfor %}
+  </ul>
+
+  <p><strong>Total:</strong> ₹{{ '%.2f'|format(order.total) }}</p>
+
+  <p>
+    <a class="button" href="/admin/order/{{ order.id }}/edit">Edit order</a>
+    <form method="post" action="/admin/order/{{ order.id }}/delete" style="display:inline;margin-left:8px" onsubmit="return confirm('Remove order {{ order.id }}? This cannot be undone.');">
+      <button class="button" style="background:#ef4444">Delete order</button>
+    </form>
+    <a class="button" href="/admin/orders" style="background:#6b7280;margin-left:8px">Back</a>
+  </p>
+</div>
+{% endblock %}

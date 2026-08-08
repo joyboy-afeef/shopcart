@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="admin-panel">
+  <h2>My Recent Orders</h2>
+  {% if not orders %}
+  <p>You have no recent orders yet. Browse Afeef'z Store products to place your first order.</p>
+  {% else %}
+    {% for order in orders %}
+    <div class="order-card" style="margin-bottom:18px;padding:18px;border:1px solid #e5e7eb;border-radius:10px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;">
+        <div>
+          <p><strong>Order ID:</strong> {{ order.id }}</p>
+          <p><strong>Placed:</strong> {{ order.created_at }}</p>
+          <p><strong>Status:</strong> {{ order.get('status', 'pending') }}</p>
+          <p><strong>Total:</strong> ₹{{ '%.2f'|format(order.total) }}</p>
+        </div>
+        <div style="text-align:right;min-width:160px;">
+          {% if order.get('rating') %}
+            <p><strong>Your rating:</strong> {{ order.get('rating') }} / 5</p>
+          {% endif %}
+          {% if order.get('feedback') %}
+            <p><strong>Your feedback:</strong></p>
+          {% endif %}
+        </div>
+      </div>
+
+      <h3>Items</h3>
+      <ul>
+        {% for item in order['items'] %}
+        <li>{{ item.quantity }} × {{ item.name }} — ₹{{ '%.2f'|format(item.total) }}</li>
+        {% endfor %}
+      </ul>
+
+      {% if order.get('feedback') or order.get('rating') %}
+        <div style="margin-top:12px;padding:12px;background:#f9fafb;border-radius:8px;">
+          {% if order.get('rating') %}<p><strong>Rating:</strong> {{ order.get('rating') }} / 5</p>{% endif %}
+          {% if order.get('feedback') %}<p><strong>Feedback:</strong> {{ order.get('feedback') }}</p>{% endif %}
+        </div>
+      {% endif %}
+
+      <div style="margin-top:14px;">
+        {% if order.get('status') == 'delivered' %}
+          {% if order.get('feedback') or order.get('rating') %}
+            <p style="margin-bottom:12px;font-weight:600;color:#047857;">Thank you! Your delivered order feedback is recorded.</p>
+          {% else %}
+            <p style="margin-bottom:12px;font-weight:600;color:#1d4ed8;">Your order has been delivered. Please leave a rating and feedback.</p>
+            <form method="post" action="/order/{{ order.id }}/feedback">
+              <label style="display:block;margin-bottom:8px;">
+                Rating
+                <select name="rating" style="width:100%;max-width:140px;margin-top:4px;">
+                  <option value="">Select</option>
+                  {% for num in range(1,6) %}
+                  <option value="{{ num }}" {% if order.get('rating') == num %}selected{% endif %}>{{ num }}</option>
+                  {% endfor %}
+                </select>
+              </label>
+              <label style="display:block;margin-bottom:10px;">
+                Feedback
+                <textarea name="feedback" rows="3" style="width:100%;margin-top:4px;" placeholder="Tell us how your order was.">{% if order.get('feedback') %}{{ order.get('feedback') }}{% endif %}</textarea>
+              </label>
+              <button class="button" type="submit">Submit feedback</button>
+            </form>
+          {% endif %}
+        {% else %}
+          <p style="margin-bottom:12px;color:#6b7280;">Feedback is available after your order is delivered.</p>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  {% endif %}
+</div>
+{% endblock %}

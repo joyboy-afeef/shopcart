@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="layout">
+  <section class="products-section">
+    <h2>AI Support Assistant</h2>
+    <p>Ask about orders, returns, shipping, or product details. The assistant uses your current catalog and order history.</p>
+    <form method="post" class="form-card" style="margin-top:18px;">
+      <label>
+        Your question
+        <input type="text" name="question" value="{{ question }}" placeholder="Example: What is the status of my order?" required />
+      </label>
+      <button class="button" type="submit">Ask assistant</button>
+    </form>
+
+    {% if answer %}
+    <div style="margin-top:20px;padding:18px;border-radius:16px;background:#eff6ff;border:1px solid #bfdbfe;">
+      <strong>Answer:</strong> {{ answer }}
+    </div>
+    {% endif %}
+
+    {% if history %}
+    <div style="margin-top:24px;">
+      <h3>Recent questions</h3>
+      {% for item in history %}
+      <div style="margin-bottom:12px;padding:12px;border:1px solid #e5e7eb;border-radius:12px;background:#f9fafb;">
+        <div><strong>You:</strong> {{ item.question }}</div>
+        <div style="margin-top:6px;"><strong>Assistant:</strong> {{ item.answer }}</div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </section>
+
+  <aside class="cart-panel">
+    <h2>Helpful product hints</h2>
+    {% if products %}
+    <ul>
+      {% for product in products[:6] %}
+      <li style="margin-bottom:10px;"><strong>{{ product.name }}</strong><br />{{ product.description }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    <a class="button" href="/" style="margin-top:12px;">Browse products</a>
+  </aside>
+</div>
+{% endblock %}

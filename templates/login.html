@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="admin-panel" style="max-width: 500px; margin: 0 auto;">
+  <h2>Login with Phone Number</h2>
+  <form method="post" class="form-card" onsubmit="return validatePhone()">
+    <label>
+      Country code
+      <select name="country_code" required>
+        <option value="">Select country...</option>
+        {% for c in codes %}
+        <option value="{{ c.code }}" {% if session.get('country_code')==c.code %}selected{% endif %}>{{ c.name }} ({{ c.code }})</option>
+        {% endfor %}
+      </select>
+    </label>
+
+    <label>
+      Phone number (digits only, minimum 6 digits)
+      <input type="tel" name="phone" id="phone-input" placeholder="e.g., 9849008172" required 
+             pattern="[0-9]{6,}" title="Please enter at least 6 digits" />
+    </label>
+    <button class="button" type="submit" style="width: 100%;">Login</button>
+  </form>
+  <p style="text-align: center; color: var(--text-secondary); font-size: 0.9rem; margin-top: 20px;">
+    Your phone number is used to track your orders. We keep it private.
+  </p>
+</div>
+
+<script>
+function validatePhone() {
+  const phone = document.getElementById('phone-input').value;
+  const cleaned = phone.replace(/[^0-9]/g, '');
+  if (cleaned.length < 6) {
+    alert('Please enter at least 6 digits');
+    return false;
+  }
+  return true;
+}
+</script>
+{% endblock %}

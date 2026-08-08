@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="admin-panel">
+  <h2>Order Confirmation</h2>
+  <p>Order ID: <strong>{{ order.id }}</strong></p>
+  <p>Phone: <strong>{{ order.phone }}</strong></p>
+  <p>Placed at: <strong>{{ order.created_at }}</strong></p>
+  <p>Delivery address: <strong>{{ order.get('address', '—') }}</strong></p>
+
+  <h3>Items</h3>
+  <ul>
+    {% for item in order['items'] %}
+    <li>{{ item.quantity }} × {{ item.name }} — ₹{{ '%.2f'|format(item.total) }}</li>
+    {% endfor %}
+  </ul>
+
+  <p><strong>Total:</strong> ₹{{ '%.2f'|format(order.total) }}</p>
+
+  <p>Your order has been saved. You can review recent orders and leave feedback on the <a href="/my-orders">My Orders</a> page.</p>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Afeef'z Store</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div>
+        <h1>Afeef'z Store</h1>
+      </div>
+      <nav class="nav">
+        <a href="/">Store</a>
+        <a href="/support">Support</a>
+        <a href="/admin">Admin</a>
+        {% if session.get('phone') %}
+        <a href="/my-orders">My Orders</a>
+        <span style="margin-left:16px;font-weight:600;">Logged in: {{ session.get('country_code','') }} {{ session.get('phone') }}</span>
+        <a href="/logout" style="margin-left:10px;">Logout</a>
+        {% else %}
+        <a href="/login" style="margin-left:16px;">Login</a>
+        {% endif %}
+      </nav>
+    </header>
+
+    <main class="page">{% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      <div class="flash-list">
+        {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>

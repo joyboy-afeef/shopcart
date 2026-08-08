@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="admin-panel" style="max-width: 500px; margin: 0 auto;">
+  <div style="text-align: center; margin-bottom: 32px;">
+    <div class="admin-badge" style="margin-bottom: 16px;">Admin Area</div>
+    <h2>Sign In to Admin Dashboard</h2>
+    <p style="color: var(--text-secondary);">Enter your admin password to access store management tools.</p>
+  </div>
+  
+  <form method="post" class="form-card">
+    <label>
+      Admin Password
+      <input type="password" name="password" placeholder="Enter admin password" required 
+             autocomplete="off" />
+    </label>
+    <button class="button" type="submit" style="width: 100%;">Sign in</button>
+  </form>
+  
+  <p style="text-align: center; margin-top: 20px;">
+    <a href="/">← Back to Store</a>
+  </p>
+</div>
+{% endblock %}

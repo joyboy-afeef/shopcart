@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="admin-panel">
+  <h2>Manage Calling Codes</h2>
+  <p><a href="/admin">Back to admin</a></p>
+
+  <h3>Add code</h3>
+  <form method="post" action="/admin/codes/add" class="form-card">
+    <label>
+      Code (e.g. +91)
+      <input type="text" name="code" required />
+    </label>
+    <label>
+      Name (e.g. India)
+      <input type="text" name="name" required />
+    </label>
+    <button class="button" type="submit">Add code</button>
+  </form>
+
+  <h3>Existing codes</h3>
+  {% if not codes %}
+  <p>No codes defined.</p>
+  {% else %}
+  <ul>
+    {% for c in codes %}
+    <li>{{ c.name }} ({{ c.code }})
++      <form method="post" action="/admin/codes/delete" style="display:inline;margin-left:12px;">
++        <input type="hidden" name="code" value="{{ c.code }}" />
++        <button class="button" type="submit" onclick="return confirm('Delete this code?')">Delete</button>
++      </form>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</div>
+{% endblock %}
